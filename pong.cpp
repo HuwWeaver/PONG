@@ -1,29 +1,27 @@
 #include <iostream>
 #include "raylib.h"
-#include "Ball.h"
-#include "Paddle.h"
+#include "MainMenu_Interface.h"
+#include "PVP_Interface.h"
+#include "GameOver_Interface.h"
 
 int main()
 {
-    //Window Dimensions
+    // Window Dimensions
     int width{1000};
     int height{650};
     InitWindow(width, height, "PONG!");
 
-    //Ball set up
-    Ball ball{Vector2{static_cast<float>(width) / 2.0f, static_cast<float>(height) / 2.0f}};
+    int targetGUI{0};
+    int currentGUI{0};
+    bool quitGame{false};
 
-    //Paddle Set Up
-    Paddle leftPaddle{KEY_W, KEY_S};
-    leftPaddle.setStartPos(width, height, true);
-    Paddle rightPaddle{KEY_UP, KEY_DOWN};
-    rightPaddle.setStartPos(width, height, false);
-
-    bool shouldReset{false};
+    MainMenu_Interface MainMenu_GUI(width, height);
+    PVP_Interface PVP_GUI(width, height);
+    GameOver_Interface GameOver_GUI(width, height);
 
     SetTargetFPS(120);
 
-    while (!WindowShouldClose())
+    while (!WindowShouldClose() && !quitGame)
     {
         // Delta time
         float dt = GetFrameTime();
@@ -31,82 +29,51 @@ int main()
         BeginDrawing();
         ClearBackground(BLACK);
 
-        if (leftPaddle.GetScore() >= 3 || rightPaddle.GetScore() >= 3)
+        if (currentGUI != targetGUI)
         {
-            DrawText("Game Over!", width/2 - 100, height/2 - 50 , 50, RED);
-            if(leftPaddle.GetScore() >= 3)
+            switch (currentGUI)
             {
-                DrawText("Left Player Wins!", width/2 - 100, height/2, 30, WHITE);
-            }
-            else
-            {
-                DrawText("Right Player Wins!", width/2 - 100, height/2, 30, WHITE);
-            }
-            DrawText("Press R to Restart", width/2 - 100, height/2 + 35, 20, BLUE);
+            case -1:
+                break;
 
-            if(IsKeyDown(KEY_R)) //Restart game on R key press
-            {
-                ball.restart();
-                leftPaddle.restart();
-                rightPaddle.restart();
+            case 0:
+                break;
+
+            case 1:
+                PVP_GUI.Reset();
+                break;
+
+            case 99:
+                GameOver_GUI.Reset();
+                break;
+
+            default:
+                break;
             }
-        }
-        else
+
+            currentGUI = targetGUI;
+        };
+
+        switch (currentGUI)
         {
-            //Game Logic Begins
-            if(shouldReset)
-            {
-                ball.reset();
-                shouldReset = false;
-            }
+        case -1:
+            quitGame = true;
+            break;
 
-            //Update Ball
-            ball.tick(dt);
+        case 0:
+            targetGUI = MainMenu_GUI.tick(dt);
+            break;
 
-            //Display Score
-            std::string temp_lp_score = std::to_string(leftPaddle.GetScore());
-            std::string temp_rp_score = std::to_string(rightPaddle.GetScore());
-            std::string temp_score = temp_lp_score + " : " + temp_rp_score;
-            char const* final_score = temp_score.c_str();
-            DrawText(final_score, width/2 - 40, 25, 50, WHITE);
+        case 1:
+            targetGUI = PVP_GUI.tick(dt);
+            break;
 
-            //If ball collision with player, move away from player and reverse direction
-            //Right Player
-            if(CheckCollisionCircleRec(ball.getCurrentPos(), ball.getRadius(), rightPaddle.GetCollisionRect()))
-            {
-                ball.setVelocity(Vector2{-ball.getVelocity().x, (ball.getCurrentPos().y - (rightPaddle.GetCurrentPos().y + (rightPaddle.GetHeight() / 2))) / 10});
-                ball.setPosition(Vector2{rightPaddle.GetCurrentPos().x - ball.getRadius(), ball.getCurrentPos().y});
-            }
-            //Left Player
-            if(CheckCollisionCircleRec(ball.getCurrentPos(), ball.getRadius(), leftPaddle.GetCollisionRect()))
-            {
-                ball.setVelocity(Vector2{-ball.getVelocity().x, (ball.getCurrentPos().y - (leftPaddle.GetCurrentPos().y + (leftPaddle.GetHeight() / 2))) / 10});
-                ball.setPosition(Vector2{leftPaddle.GetCurrentPos().x + leftPaddle.GetWidth() + ball.getRadius(), ball.getCurrentPos().y});
-            }
+        case 99:
+            targetGUI = GameOver_GUI.tick(dt);
+            break;
 
-            //If circle reaches left/right edge of screen, give score and reset
-            if(ball.getCurrentPos().x < 0)
-            {
-                rightPaddle.setScore(rightPaddle.GetScore() + 1);
-                shouldReset = true;
-            }
-            if(ball.getCurrentPos().x > width)
-            {
-                leftPaddle.setScore(leftPaddle.GetScore() + 1);
-                shouldReset = true;
-            }
-
-            //If circle reaches top/bottom edge of screen, reverse y direction
-            if(ball.getCurrentPos().y < 0 || ball.getCurrentPos().y > height)
-            {
-                ball.setVelocity(Vector2{ball.getVelocity().x, -ball.getVelocity().y});
-            }
-
-            //Player Input
-            leftPaddle.tick(dt);
-            rightPaddle.tick(dt);
-
-            //Game Logic Ends
+        default:
+            break;
         }
 
         EndDrawing();

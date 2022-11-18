@@ -6,7 +6,7 @@
 class Ball
 {
 public:
-    Ball(Vector2 pos);
+    Ball();
     virtual void tick(float deltaTime);
     void restart(); //restart the ball to original state when a new game is started
     void reset(); //reset the ball to original position with reverse velocity when new round is started
@@ -15,6 +15,7 @@ public:
     int getRadius() {return radius;};
     Vector2 getVelocity() {return velocity;};
 
+    void setStartPos(Vector2 pos);
     void setVelocity(Vector2 newVelocity) {velocity = newVelocity;};
     void setPosition(Vector2 pos) {currentPos = pos;};
 

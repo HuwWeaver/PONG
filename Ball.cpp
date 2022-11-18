@@ -1,8 +1,14 @@
 #include "Ball.h"
 #include "raymath.h"
 
-Ball::Ball(Vector2 pos) : startPos(pos), currentPos(pos)
+Ball::Ball()
 {
+}
+
+void Ball::setStartPos(Vector2 pos)
+{
+    startPos = pos;
+    currentPos = pos;
 }
 
 void Ball::tick(float deltaTime)
