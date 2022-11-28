@@ -1,18 +1,18 @@
-#ifndef BASE_INTERFACE
-#define BASE_INTERFACE
+#ifndef BASE_SCENE
+#define BASE_SCENE
 
 #include "raylib.h"
 
-class Base_Interface
+class Base_Scene
 {
 public:
-    Base_Interface();
+    Base_Scene();
     virtual int tick(float deltaTime);
     virtual void Reset();
 
 protected:
     int width{}, height{};
-    int GUI_ID{}, GUI_Selection{};
+    int Scene_ID{}, Scene_Selection{};
 };
 
 #endif

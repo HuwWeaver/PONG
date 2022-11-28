@@ -4,8 +4,8 @@
             "name": "Win32",
             "includePath": [
                 "C:/raylib/raylib/src/**",
-                "${workspaceFolder}/**",
-                "${workspaceFolder}/GUIs/**"
+                "${workspaceFolder}/**"
+                //"${workspaceFolder}/Scenes/**"
             ],
             "defines": [
                 "_DEBUG",

@@ -1,14 +1,14 @@
-#ifndef PVP_INTERFACE
-#define PVP_INTERFACE
+#ifndef SCENE_PVP
+#define SCENE_PVP
 
-#include "Base_Interface.h"
+#include "Base_Scene.h"
 #include "Ball.h"
 #include "Paddle.h"
 
-class PVP_Interface : public Base_Interface
+class Scene_PVP : public Base_Scene
 {
 public:
-    PVP_Interface(int winWidth, int winHeight);
+    Scene_PVP(int winWidth, int winHeight);
     virtual int tick(float deltaTime) override;
     virtual void Reset() override;
 

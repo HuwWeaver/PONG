@@ -1,23 +1,23 @@
 #include <iostream>
 #include "raylib.h"
-#include "MainMenu_Interface.h"
-#include "PVP_Interface.h"
-#include "GameOver_Interface.h"
+#include "Scene_MainMenu.h"
+#include "Scene_PVP.h"
+#include "Scene_GameOver.h"
 
 int main()
 {
     // Window Dimensions
-    int width{1000};
-    int height{650};
+    int width{1280};
+    int height{720};
     InitWindow(width, height, "PONG!");
 
-    int targetGUI{0};
-    int currentGUI{0};
+    int targetScene{0};
+    int currentScene{0};
     bool quitGame{false};
 
-    MainMenu_Interface MainMenu_GUI(width, height);
-    PVP_Interface PVP_GUI(width, height);
-    GameOver_Interface GameOver_GUI(width, height);
+    Scene_MainMenu MainMenu(width, height);
+    Scene_PVP PVP(width, height);
+    Scene_GameOver GameOver(width, height);
 
     SetTargetFPS(120);
 
@@ -29,9 +29,9 @@ int main()
         BeginDrawing();
         ClearBackground(BLACK);
 
-        if (currentGUI != targetGUI)
+        if (currentScene != targetScene)
         {
-            switch (currentGUI)
+            switch (currentScene)
             {
             case -1:
                 break;
@@ -40,36 +40,36 @@ int main()
                 break;
 
             case 1:
-                PVP_GUI.Reset();
+                PVP.Reset();
                 break;
 
             case 99:
-                GameOver_GUI.Reset();
+                GameOver.Reset();
                 break;
 
             default:
                 break;
             }
 
-            currentGUI = targetGUI;
+            currentScene = targetScene;
         };
 
-        switch (currentGUI)
+        switch (currentScene)
         {
         case -1:
             quitGame = true;
             break;
 
         case 0:
-            targetGUI = MainMenu_GUI.tick(dt);
+            targetScene = MainMenu.tick(dt);
             break;
 
         case 1:
-            targetGUI = PVP_GUI.tick(dt);
+            targetScene = PVP.tick(dt);
             break;
 
         case 99:
-            targetGUI = GameOver_GUI.tick(dt);
+            targetScene = GameOver.tick(dt);
             break;
 
         default:
