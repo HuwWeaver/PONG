@@ -1,12 +1,12 @@
-#ifndef PADDLE_H
-#define PADDLE_H
+#ifndef BASE_PADDLE_H
+#define BASE_PADDLE_H
 
 #include "raylib.h"
 
-class Paddle
+class Base_Paddle
 {
 public:
-    Paddle(KeyboardKey up, KeyboardKey down);
+    Base_Paddle();
     void restart();
     virtual void tick(float deltaTime);
 
@@ -16,7 +16,7 @@ public:
     int GetHeight() {return height;};
     int GetScore() {return score;};
 
-    void setStartPos(int windowWidth, int windowHeight, bool leftPlayer);
+    void setStartPos(int windowWidth, int windowHeight, bool leftPaddle);
     void setScore(int newScore) {score = newScore;};
 
 protected:

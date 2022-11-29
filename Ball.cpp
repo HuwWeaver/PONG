@@ -37,7 +37,7 @@ void Ball::reset()
     currentPos = startPos;
 }
 
-void Ball::hitPaddle(Paddle paddle, bool isLeftPaddle)
+void Ball::hitPaddle(Base_Paddle paddle, bool isLeftPaddle)
 {
     float paddleMidpoint = paddle.GetCurrentPos().y + (paddle.GetHeight() / 2);
 

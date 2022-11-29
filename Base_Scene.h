@@ -12,7 +12,7 @@ public:
 
 protected:
     int width{}, height{};
-    int Scene_ID{}, Scene_Selection{};
+    int sceneID{}, sceneSelection{};
 };
 
 #endif

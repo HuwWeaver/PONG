@@ -3,6 +3,8 @@
 #include "Scene_MainMenu.h"
 #include "Scene_PVP.h"
 #include "Scene_GameOver.h"
+#include "Scene_AI.h"
+#include "Scene_AIMenu.h"
 
 int main()
 {
@@ -18,6 +20,8 @@ int main()
     Scene_MainMenu MainMenu(width, height);
     Scene_PVP PVP(width, height);
     Scene_GameOver GameOver(width, height);
+    Scene_AI AI(width, height);
+    Scene_AIMenu AIMenu(width, height);
 
     SetTargetFPS(120);
 
@@ -36,11 +40,31 @@ int main()
             case -1:
                 break;
 
-            case 0:
+            case 0: //Main Menu
+                MainMenu.Reset();
                 break;
 
-            case 1:
+            case 1: //AI Menu
+                AIMenu.Reset();
+                break;
+
+            case 10:
                 PVP.Reset();
+                break;
+
+            case 20:
+                AI.SetDifficulty(1);
+                AI.Reset();
+                break;
+
+            case 21:
+                AI.SetDifficulty(2);
+                AI.Reset();
+                break;
+
+            case 22:
+                AI.SetDifficulty(3);
+                AI.Reset();
                 break;
 
             case 99:
@@ -65,7 +89,23 @@ int main()
             break;
 
         case 1:
+            targetScene = AIMenu.tick(dt);
+            break;
+
+        case 10:
             targetScene = PVP.tick(dt);
+            break;
+
+        case 20:
+            targetScene = AI.tick(dt);
+            break;
+
+        case 21:
+            targetScene = AI.tick(dt);
+            break;
+
+        case 22:
+            targetScene = AI.tick(dt);
             break;
 
         case 99:

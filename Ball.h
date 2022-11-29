@@ -2,7 +2,7 @@
 #define BALL_H
 
 #include "raylib.h"
-#include "Paddle.h"
+#include "Base_Paddle.h"
 
 class Ball
 {
@@ -17,7 +17,7 @@ public:
     Vector2 getVelocity() {return velocity;};
 
     void setStartPos(Vector2 pos);
-    void hitPaddle(Paddle paddle, bool isLeftPaddle);
+    void hitPaddle(Base_Paddle paddle, bool isLeftPaddle);
     void setVelocity(Vector2 newVelocity) {velocity = newVelocity;};
     void setPosition(Vector2 pos) {currentPos = pos;};
     void setWinHeightRef(int winHeight) {windowHeight = winHeight;}

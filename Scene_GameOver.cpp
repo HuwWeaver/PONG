@@ -3,8 +3,8 @@
 
 Scene_GameOver::Scene_GameOver(int winWidth, int winHeight)
 {
-    Scene_ID = 99;
-    Scene_Selection = Scene_ID;
+    sceneID = 99;
+    sceneSelection = sceneID;
     
     width = winWidth;
     height = winHeight;
@@ -19,18 +19,18 @@ int Scene_GameOver::tick(float deltaTime)
 
     if (IsKeyDown(KEY_R)) // Restart game on R key press
     {
-        Scene_Selection = 1;
+        sceneSelection = 1;
     }
 
     if (IsKeyDown(KEY_M))
     {
-        Scene_Selection = 0;
+        sceneSelection = 0;
     }
     
-    return Scene_Selection;
+    return sceneSelection;
 }
 
 void Scene_GameOver::Reset()
 {
-    Scene_Selection = Scene_ID;
+    sceneSelection = sceneID;
 }

@@ -1,12 +1,12 @@
-#ifndef SCENE_MAINMENU
-#define SCENE_MAINMENU
+#ifndef SCENE_AIMENU
+#define SCENE_AIMENU
 
 #include "Base_Scene.h"
 
-class Scene_MainMenu : public Base_Scene
+class Scene_AIMenu : public Base_Scene
 {
 public:
-    Scene_MainMenu(int winWidth, int winHeight);
+    Scene_AIMenu(int winWidth, int winHeight);
     virtual int tick(float deltaTime) override;
     virtual void Reset() override;
 

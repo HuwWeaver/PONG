@@ -1,10 +1,10 @@
-#include "Scene_MainMenu.h"
+#include "Scene_AIMenu.h"
 #include "raylib.h"
 
-Scene_MainMenu::Scene_MainMenu(int winWidth, int winHeight)
+Scene_AIMenu::Scene_AIMenu(int winWidth, int winHeight)
 {
-    sceneID = 0;
-    sceneSelection = 10;
+    sceneID = 1;
+    sceneSelection = 20;
     
     width = winWidth;
     height = winHeight;
@@ -12,12 +12,13 @@ Scene_MainMenu::Scene_MainMenu(int winWidth, int winHeight)
     circlePos = Vector2{static_cast<float>(width/2 - 70), static_cast<float>(height/2 - 10)};
 }
 
-int Scene_MainMenu::tick(float deltaTime)
+int Scene_AIMenu::tick(float deltaTime)
 {
     DrawText("PONG!", width/2 - 90, height/4, 60, WHITE);
-    DrawText("Play VS", width/2 - 45, height/2 - 25, 45, WHITE);
-    DrawText("Play AI", width/2 - 45, height/2 + 25, 45, WHITE);
-    DrawText("Quit", width/2 - 45, height/2 + 75, 45, WHITE);
+    DrawText("Easy", width/2 - 45, height/2 - 25, 45, WHITE);
+    DrawText("Medium", width/2 - 45, height/2 + 25, 45, WHITE);
+    DrawText("Hard", width/2 - 45, height/2 + 75, 45, WHITE);
+    DrawText("Back to Menu", width/2 - 45, height/2 + 125, 45, WHITE);
     
     if(IsKeyDown(KEY_UP) && inputBuffer <= 0.1f)
     {
@@ -30,7 +31,7 @@ int Scene_MainMenu::tick(float deltaTime)
     }
     else if (IsKeyDown(KEY_DOWN) && inputBuffer <= 0.1f)
     {
-        if(menuSelection < 2) 
+        if(menuSelection < 3) 
         {
             menuSelection++;
             circlePos.y = circlePos.y + 50;
@@ -46,15 +47,19 @@ int Scene_MainMenu::tick(float deltaTime)
     switch (menuSelection)
     {
     case 0:
-        sceneSelection = 10; //Play PVP
+        sceneSelection = 20; //Easy
         break;
 
     case 1:
-        sceneSelection = 1; //AI Menu
+        sceneSelection = 21; //Medium
         break;
 
     case 2:
-        sceneSelection = -1; //Quit Game
+        sceneSelection = 22; //Hard
+        break;
+
+    case 3:
+        sceneSelection = 0; //Return to main menu
         break;
     
     default:
@@ -69,10 +74,10 @@ int Scene_MainMenu::tick(float deltaTime)
     return sceneID;
 }
 
-void Scene_MainMenu::Reset()
+void Scene_AIMenu::Reset()
 {
     circlePos = Vector2{static_cast<float>(width/2 - 70), static_cast<float>(height/2 - 10)};
-    sceneSelection = 10;
+    sceneSelection = 20;
     menuSelection = 0;
     inputBuffer = 0.2f;
 }
