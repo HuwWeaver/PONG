@@ -18,6 +18,7 @@ int Scene_MainMenu::tick(float deltaTime)
     DrawText("Play VS", width/2 - 45, height/2 - 25, 45, WHITE);
     DrawText("Play AI", width/2 - 45, height/2 + 25, 45, WHITE);
     DrawText("Quit", width/2 - 45, height/2 + 75, 45, WHITE);
+    DrawText("Up/Down Arrow to Navigate, Enter to Select", (width/3), (height/4 * 3) + 50, 20, WHITE);
     
     if(IsKeyDown(KEY_UP) && inputBuffer <= 0.1f)
     {

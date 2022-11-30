@@ -60,6 +60,13 @@ int Scene_AI::tick(float deltaTime)
             shouldResetBall = false;
         }
 
+        //Show instructions if timer not 0
+        if(instructionsDisplayTimer > 0)
+        {
+            instructionsDisplayTimer -= deltaTime;
+            DrawText("W/S to move paddle", width/10, height/2 + 50, 25, WHITE);
+        }
+
         // Update Ball
         ball.tick(deltaTime);
 
@@ -107,6 +114,7 @@ void Scene_AI::Reset()
     playerPaddle.restart();
     AIPaddle.restart();
     sceneSelection = sceneID;
+    instructionsDisplayTimer = 3.0f;
 }
 
 void Scene_AI::SetDifficulty(int difficulty)

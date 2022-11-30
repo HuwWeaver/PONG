@@ -24,6 +24,8 @@ protected:
     //Paddle Set Up
     Paddle_Player playerPaddle{KEY_W, KEY_S};
     Paddle_AI AIPaddle{1};
+
+    float instructionsDisplayTimer{3.0f};
 };
 
 #endif

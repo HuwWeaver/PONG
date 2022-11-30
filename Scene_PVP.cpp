@@ -60,6 +60,15 @@ int Scene_PVP::tick(float deltaTime)
             shouldResetBall = false;
         }
 
+        //Show instructions if timer not 0
+        if(instructionsDisplayTimer > 0)
+        {
+            instructionsDisplayTimer -= deltaTime;
+            DrawText("W/S to move Left paddle", width/10, height/2 + 50, 25, WHITE);
+            DrawText("Up/Down Arrow to ", (width/4 * 3) - 25, height/2 + 50, 25, WHITE);
+            DrawText("move Right paddle", (width/4 * 3) - 25, height/2 + 75, 25, WHITE);
+        }
+
         // Update Ball
         ball.tick(deltaTime);
 
@@ -95,7 +104,7 @@ int Scene_PVP::tick(float deltaTime)
         leftPaddle.tick(deltaTime);
         rightPaddle.tick(deltaTime);
 
-        // Game Logic Ends
+        // Game Logic Ends 
     }
 
     return sceneSelection;
@@ -107,4 +116,5 @@ void Scene_PVP::Reset()
     leftPaddle.restart();
     rightPaddle.restart();
     sceneSelection = sceneID;
+    instructionsDisplayTimer = 3.0f;
 }

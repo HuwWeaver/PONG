@@ -21,6 +21,8 @@ protected:
     //Paddle Set Up
     Paddle_Player leftPaddle{KEY_W, KEY_S};
     Paddle_Player rightPaddle{KEY_UP, KEY_DOWN};
+
+    float instructionsDisplayTimer{3.0f};
 };
 
 #endif
