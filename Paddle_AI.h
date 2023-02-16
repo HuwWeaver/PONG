@@ -15,7 +15,13 @@ public:
 
 protected:
     int difficulty{};
-    Color getPaddleColour(int difficulty);
+    Color difficultyColour[4]
+    {
+        WHITE,
+        YELLOW,
+        ORANGE,
+        RED
+    };
 };
 
 #endif
